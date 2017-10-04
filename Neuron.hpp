@@ -10,7 +10,7 @@ class Neuron{
 		double R; //Membrane resistance -> depend d'un neurone
 		unsigned int spikesNumber_; //Number of spikes
 		std::vector<double> spikesTime_; // The times when the spikes occured
-		double tempsPause_;
+		double break_time;
 
 		
 	public:

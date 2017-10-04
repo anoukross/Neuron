@@ -3,9 +3,9 @@
 
 //Constructeur et destructeur
 Neuron::Neuron(double potential)
-:V(potential), V_th(20), R(tau/C), spikesNumber_(0.0), tempsPause_(0)
+:V(potential), V_th(20), R(tau/C), spikesNumber_(0.0), break_time(0)
 {
-	spikesTime_.clear();
+	spikesTime_.clear(); //To be sure that when we create a neuron it has got no spikes time 
 }
 Neuron::~Neuron(){}
 		
@@ -25,18 +25,17 @@ std::vector<double> Neuron::getSpikesTime() const{
 		
 //Update
 void Neuron::update(double t, double I){
-	if(tempsPause_ > 0.0){ //If neuron is refractory
-		V=V_reset;
-		tempsPause_-=h;
+	if(break_time > 0.0){ //If neuron is refractory -> neuron has spiked
+		break_time-=h;//Decrementation of the break time
 	}else{
 		const double e(exp(-(h/tau)));
 		double V_new(e*V+I*R*(1-e));
 			
 			if(V_new > V_th){
-				spikesTime_.push_back(t);
+				spikesTime_.push_back(t); 
 				spikesNumber_+=1;
-				tempsPause_=tau_ref;
-				V_new=V_reset;
+				break_time=tau_ref; //Initialisation of the break time
+				V_new=V_reset; //After a spike, a neuron gets back to its reset value
 		}
 		V=V_new; //modify neuron potential
 	}	
