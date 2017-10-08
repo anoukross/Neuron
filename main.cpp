@@ -6,7 +6,7 @@ using namespace std;
 
 int main(){
 	
-	Neuron n1(V_reset);
+	Neuron n1(-70);
 	
 	double I(0); //I = external current
 	
@@ -30,7 +30,8 @@ int main(){
 			cerr << "Erreur : impossible d'ouvrir le fichier " << "simulator.dat"
 			<< "en écriture." << endl;
 		} else {
-				out << "A temps: " << t << ", le potentiel de membrane est: " << n1.getPotential() << "." << endl;
+			out << "A temps: " << t << ", le potentiel de membrane est: " << n1.getPotential() << "." << endl;
+				
 				
 
 		}	

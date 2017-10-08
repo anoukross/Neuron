@@ -27,6 +27,9 @@ std::vector<double> Neuron::getSpikesTime() const{
 void Neuron::update(double t, double I){
 	if(break_time > 0.0){ //If neuron is refractory -> neuron has spiked
 		break_time-=h;//Decrementation of the break time
+		if(break_time<=0){
+			V=V_reset; //After the refractory time, the potential gets back to its reset value
+		}
 	}else{
 		const double e(exp(-(h/tau)));
 		double V_new(e*V+I*R*(1-e));
@@ -35,7 +38,7 @@ void Neuron::update(double t, double I){
 				spikesTime_.push_back(t); 
 				spikesNumber_+=1;
 				break_time=tau_ref; //Initialisation of the break time
-				V_new=V_reset; //After a spike, a neuron gets back to its reset value
+				V_new=0; //After a spike, a neuron gets back to 0
 		}
 		V=V_new; //modify neuron potential
 	}	
