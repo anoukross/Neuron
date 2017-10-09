@@ -6,7 +6,7 @@ using namespace std;
 
 int main(){
 	
-	Neuron n1(-70);
+	Neuron n1(V_reset);
 	
 	double I(0); //I = external current
 	
