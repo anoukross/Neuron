@@ -34,12 +34,13 @@ void Neuron::update(double t, double I){
 		const double e(exp(-(h/tau)));
 		double V_new(e*V+I*R*(1-e));
 			
-			if(V_new > V_th){
-				spikesTime_.push_back(t); 
-				spikesNumber_+=1;
-				break_time=tau_ref; //Initialisation of the break time
-				V_new=0; //After a spike, a neuron gets back to 0
+		if(V_new >= V_th){
+			spikesTime_.push_back(t); 
+			spikesNumber_+=1;
+			break_time=tau_ref; //Initialisation of the break time
+				
+		}else{
+			V=V_new; //modify neuron potential
 		}
-		V=V_new; //modify neuron potential
 	}	
 }
